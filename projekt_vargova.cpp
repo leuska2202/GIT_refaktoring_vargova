@@ -15,16 +15,16 @@ typedef struct	auta
 
 int main()
 {
-	AUTA *p; //hlavny prvy prvok zoznamu
-	p = NULL; //na zaciatku prazdny zoznam
-	int n = 1; //pocet prvkov zoznamu
+	AUTA *p_prvy; //hlavny prvy prvok zoznamu
+	p_prvy = NULL; //na zaciatku prazdny zoznam
+	int pocet_prvkov = 1; //pocet prvkov zoznamu
 
 	while (1)
 	{
-		char f;
-		scanf("%c", &f); // nacitanie funcie, kt. chceme vykonat
+		char funkcia;
+		scanf("%c", &funkcia); // nacitanie funcie, kt. chceme vykonat
 
-		if (f == 'k') break; //ukonci program - nekonecny cyklus 
+		if (funkcia == 'k') break; //ukonci program - nekonecny cyklus 
 	}
 
 	return 0;
