@@ -15,7 +15,7 @@ typedef struct	auta
 } AUTA;
 
 //NACITANIE ZOZNAMU
-void nacitanie(AUTA **p_prvy, int *n) //n - smernik na hodnotu pocet_prvkov zoznamu p_prvy - smernik na pvu polozku zoznamu
+void nacitanie(AUTA **p_prvy, int *p_pocet_prvkov) //n - smernik na hodnotu pocet_prvkov zoznamu p_prvy - smernik na pvu polozku zoznamu
 {
 	FILE * fp;
 	AUTA *prvy, *akt;
@@ -55,20 +55,20 @@ void nacitanie(AUTA **p_prvy, int *n) //n - smernik na hodnotu pocet_prvkov zozn
 	if (fclose(fp) == EOF)
 		printf("Subor sa nepodarilo zatvorit\n");
 
-	printf("Nacitalo sa %d zaznamov. \n", pocet_prvkov - 1); 
+	printf("Nacitalo sa %d zaznamov. \n \n", pocet_prvkov - 1); 
 
 	*p_prvy = prvy; //odoslanie zoznamu do mainu 
-	*n = pocet_prvkov; // odoslanie poctu prvkov zoznamu do mainu
+	*p_pocet_prvkov = pocet_prvkov; // odoslanie poctu prvkov zoznamu do mainu
 }
 
 //VYPIS ZOZNAMU
-void vypis(AUTA *prvy, int n) // n -pocet prvkov
+void vypis(AUTA *prvy, int p_pocet_prvkov) // n -pocet prvkov
 {
 	AUTA *akt;
 	akt = prvy;
-	int i; // premenna cyklu 
+	int poradie; // premenna cyklu 
 
-	for (i = 1; i < n; i++)
+	for (poradie = 1; poradie < p_pocet_prvkov; poradie++)
 	{
 		printf("%d. \n", akt->hodnota);
 		printf("kategoria: %s \n", akt->kategoria);
@@ -77,6 +77,7 @@ void vypis(AUTA *prvy, int n) // n -pocet prvkov
 		printf("cena: %d \n", akt->cena);
 		printf("rok_vyroby: %d \n", akt->rok_vyroby);
 		printf("stav_vozidla: %s \n", akt->stav_vozidla);
+		printf("\n");
 
 		akt = akt->dalsi; // presun na dalsi prvok
 	}
