@@ -61,6 +61,27 @@ void nacitanie(AUTA **p_prvy, int *n) //n - smernik na hodnotu pocet_prvkov zozn
 	*n = pocet_prvkov; // odoslanie poctu prvkov zoznamu do mainu
 }
 
+//VYPIS ZOZNAMU
+void vypis(AUTA *prvy, int n) // n -pocet prvkov
+{
+	AUTA *akt;
+	akt = prvy;
+	int i; // premenna cyklu 
+
+	for (i = 1; i < n; i++)
+	{
+		printf("%d. \n", akt->hodnota);
+		printf("kategoria: %s \n", akt->kategoria);
+		printf("znacka: %s \n", akt->znacka);
+		printf("predajca: %s \n", akt->predajca);
+		printf("cena: %d \n", akt->cena);
+		printf("rok_vyroby: %d \n", akt->rok_vyroby);
+		printf("stav_vozidla: %s \n", akt->stav_vozidla);
+
+		akt = akt->dalsi; // presun na dalsi prvok
+	}
+}
+
 int main()
 {
 	AUTA *p_prvy; //hlavny prvy prvok zoznamu
@@ -79,6 +100,8 @@ int main()
 			p_prvy = (AUTA *)malloc(sizeof(AUTA));  
 			nacitanie(&p_prvy, &pocet_prvkov);
 		}
+		else if (funkcia == 'v')
+			vypis(p_prvy, pocet_prvkov);
 	}
 
 	return 0;
