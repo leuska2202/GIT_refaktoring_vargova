@@ -76,12 +76,31 @@ void vypis(AUTA *prvy, int p_pocet_prvkov) // n -pocet prvkov
 		printf("predajca: %s \n", akt->predajca);
 		printf("cena: %d \n", akt->cena);
 		printf("rok_vyroby: %d \n", akt->rok_vyroby);
+
 		printf("stav_vozidla: %s \n", akt->stav_vozidla);
 		printf("\n");
 
 		akt = akt->dalsi; // presun na dalsi prvok
 	}
 }
+
+//UVOLNENIE PRVKOV ZOZNAMU
+void uvolni(AUTA *prvy, int n, AUTA **uvolneny)
+{
+	AUTA *akt;
+	int i;
+
+	akt = prvy;
+	for (i = 1; i < n; i++)
+	{
+		akt = prvy;
+		prvy = prvy->dalsi; // aktualny presun na dalsi prvok
+		free(akt);	//uvolnenie pomocneho prvku, kt. momentalne = aktualny;
+	}
+
+	*uvolneny = prvy; //odoslanie uvoleneho zoznamu do mainu
+}
+
 
 int main()
 {
@@ -105,5 +124,6 @@ int main()
 			vypis(p_prvy, pocet_prvkov);
 	}
 
+	uvolni(p_prvy, pocet_prvkov, &p_prvy);  //po vystupe z cyklu ak funkcia = 'k' uvolnenie zoznamu a koniec programu
 	return 0;
 }
