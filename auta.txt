@@ -1,0 +1,21 @@
+$
+osobny automobil
+Ferrari
+Autobazar Pestovatelska 4 Bratislava
+5620
+2005
+udrziavane cervene dvojdverove
+$
+kamion
+Renault
+AUTO Modranska 5 Senec
+28000
+2016
+po havarii opraveny v dobrom stave
+$
+prives
+Renault magnum
+Cambelova autobazar Stara Vajnorska 3296/25A Bratislava
+11500
+2012
+roztrhnuta plachta
