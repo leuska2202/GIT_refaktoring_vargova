@@ -15,12 +15,12 @@ typedef struct	auta
 } AUTA;
 
 //NACITANIE ZOZNAMU
-void nacitanie(AUTA **p_prvy, int *p_pocet_prvkov) //n - smernik na hodnotu pocet_prvkov zoznamu p_prvy - smernik na pvu polozku zoznamu
+void nacitanie(AUTA *prvy, int pocet_prvkov, AUTA **p_prvy, int *p_pocet_prvkov) //n - smernik na hodnotu pocet_prvkov zoznamu p_prvy - smernik na pvu polozku zoznamu
 {
 	FILE * fp;
-	AUTA *prvy, *akt;
+	AUTA *akt;
 	char c[2]; // nacitanie dolarovej znacky
-	int pocet_prvkov = 1; //na zaciatku bude mat 1. zaznam hodnotu 1
+	pocet_prvkov = 1; //na zaciatku bude mat 1. zaznam hodnotu 1
 
 	if ((fp = fopen("auta.txt", "r")) == NULL)
 		printf("Zaznamy neboli nacitane\n"); //ak sa subor nepodarilo otvorit;
@@ -101,7 +101,51 @@ void uvolni(AUTA *prvy, int n, AUTA **uvolneny)
 	*uvolneny = prvy; //odoslanie uvoleneho zoznamu do mainu
 }
 
+//PRIDAVANIE PRVKU DO ZOZNAMU
+void pridanie(AUTA *prvy, int n, AUTA **novy) // novy - pointer na novy zoznam
+{
+	int k, i;
+	AUTA *akt, *pridany;
 
+	scanf("%int", &k);
+	if (k > n) k = n; //ak k- pozícia vacsia ako n- pocet prvkov tak na koniec zoznamu
+
+	pridany = (AUTA *)malloc(sizeof(AUTA)); //nacitanie prvku, kt chceme pridat
+	pridany->hodnota = k;
+	scanf(" %[^\n]", pridany->kategoria);
+	scanf(" %[^\n]", pridany->znacka);
+	scanf(" %[^\n]", pridany->predajca);
+	scanf(" %int", &pridany->cena);
+	scanf(" %int", &pridany->rok_vyroby);
+	scanf(" %[^\n]", pridany->stav_vozidla);
+	pridany->dalsi = NULL;
+
+	if (k == 1) //ak pridanie na 1. pozíciu
+	{
+		pridany->dalsi = prvy; // prvý prvok sa presúva na 2. 
+		prvy = pridany;  // pridany prvok na 1. pozíciu
+	}
+	else //ak vkladáme na hociktoru inu poziciu
+	{
+		akt = prvy;
+		for (i = 0; i < k - 2; i++)
+			akt = akt->dalsi;
+
+		pridany->dalsi = akt->dalsi;
+		akt->dalsi = pridany;
+	}
+
+	akt = prvy;
+	for (i = 1; i <= n; i++) // prepis poradovych cisel zoznamu po pridnai prvku
+	{
+		akt->hodnota = i;
+		akt = akt->dalsi;
+	}
+
+	*novy = prvy; //vratenie noveho zoznamu do mainu
+}
+
+//HLAVNY PROGRAM
 int main()
 {
 	AUTA *p_prvy; //hlavny prvy prvok zoznamu
@@ -117,11 +161,21 @@ int main()
 		
 		else if (funkcia == 'n')
 		{
+			if (p_prvy != NULL) //ak zoznam existuje - ma prvky uvolni existujuci zoznam a nacita novy
+				uvolni(p_prvy, pocet_prvkov, &p_prvy);
+
 			p_prvy = (AUTA *)malloc(sizeof(AUTA));  
-			nacitanie(&p_prvy, &pocet_prvkov);
+			nacitanie(p_prvy, pocet_prvkov, &p_prvy, &pocet_prvkov);
 		}
+
 		else if (funkcia == 'v')
 			vypis(p_prvy, pocet_prvkov);
+
+		else if (funkcia == 'p')
+		{
+			pridanie(p_prvy, pocet_prvkov, &p_prvy); 
+			pocet_prvkov++;  //pridali sme prvok --> zvacsil sa nam zoznam o 1 --> pocet prvkov +1
+		}
 	}
 
 	uvolni(p_prvy, pocet_prvkov, &p_prvy);  //po vystupe z cyklu ak funkcia = 'k' uvolnenie zoznamu a koniec programu
