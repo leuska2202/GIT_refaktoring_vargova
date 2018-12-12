@@ -20,7 +20,7 @@ Ferrari
 Autobazar Pestovatelska 4 Bratislava
 5620
 2005
-udrziavane cervene dvojdverove
+udrziavane cervene dvojdverove
 $
 kamion
 Renault
