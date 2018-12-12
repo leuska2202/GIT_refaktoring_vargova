@@ -85,13 +85,13 @@ void vypis(AUTA *prvy, int p_pocet_prvkov) // n -pocet prvkov
 }
 
 //UVOLNENIE PRVKOV ZOZNAMU
-void uvolni(AUTA *prvy, int n, AUTA **uvolneny)
+void uvolni(AUTA *prvy, int pocet_prvkov, AUTA **uvolneny)
 {
 	AUTA *akt;
-	int i;
+	int poradie;
 
 	akt = prvy;
-	for (i = 1; i < n; i++)
+	for (poradie = 1; poradie < pocet_prvkov; poradie++)
 	{
 		akt = prvy;
 		prvy = prvy->dalsi; // aktualny presun na dalsi prvok
@@ -102,25 +102,40 @@ void uvolni(AUTA *prvy, int n, AUTA **uvolneny)
 }
 
 //PRIDAVANIE PRVKU DO ZOZNAMU
-void pridanie(AUTA *prvy, int n, AUTA **novy) // novy - pointer na novy zoznam
+void pridanie(AUTA *prvy, int pocet_prvkov, AUTA **novy) // novy - pointer na novy zoznam
 {
-	int k, i;
+	int miesto_vlozenia, poradie;
 	AUTA *akt, *pridany;
 
-	scanf("%int", &k);
-	if (k > n) k = n; //ak k- pozícia vacsia ako n- pocet prvkov tak na koniec zoznamu
+	printf("Na aku poziciu chces vlozit zaznam? \n");
+	scanf("%int", &miesto_vlozenia);
+	if (miesto_vlozenia > pocet_prvkov) miesto_vlozenia = pocet_prvkov; //ak pozícia vacsia ako pocet prvkov tak prida na koniec zoznamu
 
 	pridany = (AUTA *)malloc(sizeof(AUTA)); //nacitanie prvku, kt chceme pridat
-	pridany->hodnota = k;
+	
+	pridany->hodnota = miesto_vlozenia;
+	
+	printf("Kategoria auta: \n"); 
 	scanf(" %[^\n]", pridany->kategoria);
+	
+	printf("Znacka auta: \n");
 	scanf(" %[^\n]", pridany->znacka);
+	
+	printf("Predajca: \n");
 	scanf(" %[^\n]", pridany->predajca);
+	
+	printf("Cena: \n");
 	scanf(" %int", &pridany->cena);
+	
+	printf("Rok vyroby: \n");
 	scanf(" %int", &pridany->rok_vyroby);
+	
+	printf("Stav vozidla: \n");
 	scanf(" %[^\n]", pridany->stav_vozidla);
+	
 	pridany->dalsi = NULL;
 
-	if (k == 1) //ak pridanie na 1. pozíciu
+	if (miesto_vlozenia == 1) //ak pridanie na 1. pozíciu
 	{
 		pridany->dalsi = prvy; // prvý prvok sa presúva na 2. 
 		prvy = pridany;  // pridany prvok na 1. pozíciu
@@ -128,7 +143,7 @@ void pridanie(AUTA *prvy, int n, AUTA **novy) // novy - pointer na novy zoznam
 	else //ak vkladáme na hociktoru inu poziciu
 	{
 		akt = prvy;
-		for (i = 0; i < k - 2; i++)
+		for (poradie = 0; poradie < miesto_vlozenia - 2; poradie++)
 			akt = akt->dalsi;
 
 		pridany->dalsi = akt->dalsi;
@@ -136,11 +151,13 @@ void pridanie(AUTA *prvy, int n, AUTA **novy) // novy - pointer na novy zoznam
 	}
 
 	akt = prvy;
-	for (i = 1; i <= n; i++) // prepis poradovych cisel zoznamu po pridnai prvku
+	for (poradie = 1; poradie <= pocet_prvkov; poradie++) // prepis poradovych cisel zoznamu po pridnai prvku
 	{
-		akt->hodnota = i;
+		akt->hodnota = poradie;
 		akt = akt->dalsi;
 	}
+
+	printf("Prvok pridany \n \n");
 
 	*novy = prvy; //vratenie noveho zoznamu do mainu
 }
@@ -161,7 +178,7 @@ int main()
 		
 		else if (funkcia == 'n')
 		{
-			if (p_prvy != NULL) //ak zoznam existuje - ma prvky uvolni existujuci zoznam a nacita novy
+			if (p_prvy != NULL) //ak zoznam existuje - ma uz nejake prvky uvolni existujuci zoznam a nacita novy
 				uvolni(p_prvy, pocet_prvkov, &p_prvy);
 
 			p_prvy = (AUTA *)malloc(sizeof(AUTA));  
