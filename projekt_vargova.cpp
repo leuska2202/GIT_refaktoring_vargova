@@ -201,11 +201,12 @@ void hladanie(AUTA *prvy, int pocet_prvkov)
 {
 	AUTA *akt; 
 	int suma; 
-	char vybrana_znacka[51];
+	char vybrana_znacka[51], *hladana_znacka, *aktualna_znacka;
 	int poradie, porovnanie, najdene=0; // najdene = zistenie , ci aspon 1 polozka dostupna
 
 	printf("Zadaj znacku auta: \n");
 	scanf(" %[^\n]", vybrana_znacka);
+	hladana_znacka = strlwr(vybrana_znacka);
 	
 	printf("Zadaj sumu, kt. mas k dispozicii: \n");
 	scanf(" %int", &suma);
@@ -215,7 +216,8 @@ void hladanie(AUTA *prvy, int pocet_prvkov)
 
 	for (poradie = 1; poradie < pocet_prvkov; poradie++)
 	{
-		porovnanie = strcmp(vybrana_znacka, akt->znacka); // porovnanie stringov
+		aktualna_znacka = strlwr(akt->znacka);
+		porovnanie = strcmp(hladana_znacka, aktualna_znacka);
 		
 		if (porovnanie == 0 && suma > akt->cena)  // ak porovnanie rovne 0 , tak su rovnake
 		{
@@ -236,18 +238,21 @@ void hladanie(AUTA *prvy, int pocet_prvkov)
 //MAZANIE ZAZNAMU	
 void zmazanie(AUTA *prvy, int pocet_prvkov, AUTA **novy, int *p_pocet_prvkov)
 {
-	char vybrana_znacka[51];
+	char vybrana_znacka[51], *hladana_znacka, *aktualna_znacka;
 	int poradie = 1, mazana_pozicia, poradie_mazania, pocet_zmazanych = 0, porovnanie;
 	AUTA *akt, *pomocny;
 
 	printf("Zadaj znacku, kt. chces zmazat: \n");
 	scanf(" %[^\n]", vybrana_znacka); 
+	hladana_znacka = strlwr(vybrana_znacka);
 
 	akt = prvy;
 	while (poradie < pocet_prvkov - pocet_zmazanych)
 	{
 		if (poradie == 1) akt = prvy; //v prvom cykle
-		porovnanie = strcmp(vybrana_znacka, akt->znacka);
+		
+		aktualna_znacka = strlwr(akt->znacka);
+		porovnanie = strcmp(hladana_znacka, aktualna_znacka);
 
 		if (porovnanie == 0)
 		{
