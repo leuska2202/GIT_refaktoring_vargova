@@ -208,12 +208,13 @@ void hladanie(AUTA *prvy, int pocet_prvkov)
 	scanf(" %int", &suma);
 
 	akt = prvy;
+	printf("Dostupne vozidla: \n");
+
 	for (poradie = 1; poradie < pocet_prvkov; poradie++)
 	{
-		porovnanie = strcmp(vybrana_znacka, akt->znacka);
-
-		printf("Dostupne vozidla: \n");
-		if (porovnanie == 0 && suma > akt->cena) 
+		porovnanie = strcmp(vybrana_znacka, akt->znacka); // porovnanie stringov
+		
+		if (porovnanie == 0 && suma > akt->cena)  // ak porovnanie rovne 0 , tak su rovnake
 		{
 			printf("%d. \n", akt->hodnota);
 			printf("kategoria: %s \n", akt->kategoria);
