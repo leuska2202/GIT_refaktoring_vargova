@@ -194,6 +194,33 @@ void aktualizacia(AUTA *prvy, int pocet_prvkov, AUTA **novy)
 	*novy = prvy;
 }
 
+void hladanie(AUTA *prvy, int n)
+{
+	AUTA *akt; 
+	int s; 
+	char x[51];
+		int i, p, y = 0;
+	scanf(" %[^\n]", x);
+	scanf(" %int", &s);
+
+	akt = prvy;
+	for (i = 1; i < n; i++)
+	{
+		p = strcmp(x, akt->znacka);
+		if (p == 0 && s > akt->cena) 
+		{
+			printf("%d. \n", akt->hodnota);
+			printf("kategoria: %s \n", akt->kategoria);
+			printf("znacka: %s \n", akt->znacka);
+			printf("predajca: %s \n", akt->predajca);
+			printf("cena: %d \n", akt->cena);
+			printf("rok_vyroby: %d \n", akt->rok_vyroby);
+			printf("stav_vozidla: %s \n", akt->stav_vozidla);
+		}
+		akt = akt->dalsi;
+	}
+}
+
 //HLAVNY PROGRAM
 int main()
 {
@@ -224,6 +251,8 @@ int main()
 		case 'p': pridanie(p_prvy, pocet_prvkov, &p_prvy); pocet_prvkov++; break;  //pridali sme prvok --> zvacsil sa nam zoznam o 1 --> pocet prvkov +1
 		
 		case 'a': aktualizacia(p_prvy, pocet_prvkov, &p_prvy); break;
+
+		case 'h': hladanie(p_prvy, pocet_prvkov); break;
 		}
 	}
 
