@@ -231,6 +231,60 @@ void hladanie(AUTA *prvy, int pocet_prvkov)
 	if (najdene == 0) printf("V ponuke nie su pozadovane auta.\n \n"); //ak sa nic nenaslo;
 }
 
+//MAZANIE ZAZNAMU	
+void zmazanie(AUTA *prvy, int pocet_prvkov, AUTA **novy, int *p_pocet_prvkov)
+{
+	char vybrana_znacka[51];
+	int poradie = 1, mazana_pozicia, poradie_mazania, pocet_zmazanych = 0, porovnanie;
+	AUTA *akt, *pomocny;
+
+	printf("Zadaj znacku, kt. chces zmazat: \n");
+	scanf(" %[^\n]", vybrana_znacka); 
+
+	akt = prvy;
+	while (poradie < pocet_prvkov - pocet_zmazanych)
+	{
+		if (poradie == 1) akt = prvy; //v prvom cykle
+		porovnanie = strcmp(vybrana_znacka, akt->znacka);
+
+		if (porovnanie == 0)
+		{
+			mazana_pozicia = poradie;
+			pocet_zmazanych++; 
+			poradie = 0; 
+
+			if (mazana_pozicia == 1) //ak mažeme 1.pozíciu
+			{
+				pomocny = prvy;
+				prvy = pomocny->dalsi;
+				free(pomocny); //je potrebné uvolnenie vymazaneho prvku
+			}
+			else //ak mažeme inú pozíciu
+			{
+				akt = prvy;
+				for (poradie_mazania = 0; poradie_mazania < mazana_pozicia - 2; poradie_mazania++) 
+					akt = akt->dalsi;
+				pomocny = akt->dalsi;
+				akt->dalsi = pomocny->dalsi;
+				free(pomocny);
+			}
+		}
+		poradie++;
+		akt = akt->dalsi;
+	}
+	printf("Vymazalo sa %d zaznamov \n \n", pocet_zmazanych);
+
+	akt = prvy;
+	for (poradie = 1; poradie < pocet_prvkov - pocet_zmazanych; poradie++) //prepisanie ciselneho poradia prvkov po zmazani niektorych prvkov zoznamu
+	{
+		akt->hodnota = poradie;
+		akt = akt->dalsi;
+	}
+
+	*novy = prvy; //odoslanie noveho zoznamu a poctu prvkov opat do mainu
+	*p_pocet_prvkov = pocet_prvkov - pocet_zmazanych; //pocet prvkov sa zmensil o pocet zmazanych
+}
+
 //HLAVNY PROGRAM
 int main()
 {
@@ -263,6 +317,8 @@ int main()
 		case 'a': aktualizacia(p_prvy, pocet_prvkov, &p_prvy); break;
 
 		case 'h': hladanie(p_prvy, pocet_prvkov); break;
+
+		case 'z': zmazanie(p_prvy, pocet_prvkov, &p_prvy, &pocet_prvkov); break;
 		}
 	}
 
