@@ -16,7 +16,7 @@ typedef struct	auta
 } AUTA;
 
 //NACITANIE ZOZNAMU
-void nacitanie(AUTA **p_prvy, int *p_pocet_prvkov) 
+void nacitanie(AUTA **p_prvy, int *p_pocet_prvkov)
 {
 	FILE * f_subor;
 	AUTA *prvy, *akt;
@@ -56,7 +56,7 @@ void nacitanie(AUTA **p_prvy, int *p_pocet_prvkov)
 	if (fclose(f_subor) == EOF)
 		printf("Subor sa nepodarilo zatvorit\n");
 
-	printf("Nacitalo sa %d zaznamov. \n \n", pocet_prvkov - 1); 
+	printf("Nacitalo sa %d zaznamov. \n \n", pocet_prvkov - 1);
 
 	*p_prvy = prvy; //odoslanie zoznamu do mainu 
 	*p_pocet_prvkov = pocet_prvkov; // odoslanie poctu prvkov zoznamu do mainu
@@ -113,27 +113,27 @@ void pridanie(AUTA *prvy, int pocet_prvkov, AUTA **novy) // novy - pointer na no
 	if (miesto_vlozenia > pocet_prvkov) miesto_vlozenia = pocet_prvkov; //ak pozícia vacsia ako pocet prvkov tak prida na koniec zoznamu
 
 	pridany = (AUTA *)malloc(sizeof(AUTA)); //nacitanie prvku, kt chceme pridat
-	
+
 	pridany->hodnota = miesto_vlozenia;
-	
-	printf("\nKategoria auta: \n"); 
+
+	printf("\nKategoria auta: \n");
 	scanf(" %[^\n]", pridany->kategoria);
-	
+
 	printf("Znacka auta: \n");
 	scanf(" %[^\n]", pridany->znacka);
-	
+
 	printf("Predajca: \n");
 	scanf(" %[^\n]", pridany->predajca);
-	
+
 	printf("Cena: \n");
 	scanf(" %int", &pridany->cena);
-	
+
 	printf("Rok vyroby: \n");
 	scanf(" %int", &pridany->rok_vyroby);
-	
+
 	printf("Stav vozidla: \n");
 	scanf(" %[^\n]", pridany->stav_vozidla);
-	
+
 	pridany->dalsi = NULL;
 
 	if (miesto_vlozenia == 1) //ak pridanie na 1. pozíciu
@@ -182,7 +182,7 @@ void aktualizacia(AUTA *prvy, int pocet_prvkov, AUTA **novy)
 	{
 		aktualna_znacka = strlwr(akt->znacka);
 
-		if (strcmp(hladana_znacka, aktualna_znacka)==0 && vybrany_rok == akt->rok_vyroby)
+		if (strcmp(hladana_znacka, aktualna_znacka) == 0 && vybrany_rok == akt->rok_vyroby)
 		{
 			zmena++; //kolko sa aktualizovalo
 			akt->cena = akt->cena - 100;
@@ -198,15 +198,15 @@ void aktualizacia(AUTA *prvy, int pocet_prvkov, AUTA **novy)
 //HLADANIE ZAZNAMU
 void hladanie(AUTA *prvy, int pocet_prvkov)
 {
-	AUTA *akt; 
-	int suma; 
+	AUTA *akt;
+	int suma;
 	char vybrana_znacka[51], *hladana_znacka, *aktualna_znacka;
-	int poradie, porovnanie, najdene=0; // najdene = zistenie , ci aspon 1 polozka dostupna
+	int poradie, porovnanie, najdene = 0; // najdene = zistenie , ci aspon 1 polozka dostupna
 
 	printf("Zadaj znacku auta: \n");
 	scanf(" %[^\n]", vybrana_znacka);
 	hladana_znacka = strlwr(vybrana_znacka);
-	
+
 	printf("Zadaj sumu, kt. mas k dispozicii: \n");
 	scanf(" %int", &suma);
 
@@ -216,7 +216,7 @@ void hladanie(AUTA *prvy, int pocet_prvkov)
 	for (poradie = 1; poradie < pocet_prvkov; poradie++)
 	{
 		aktualna_znacka = strlwr(akt->znacka);
-		
+
 		if (strcmp(hladana_znacka, aktualna_znacka) == 0 && suma > akt->cena)  // ak porovnanie rovne 0 , tak su rovnake
 		{
 			printf("%d. \n", akt->hodnota);
@@ -241,21 +241,21 @@ void zmazanie(AUTA *prvy, int pocet_prvkov, AUTA **novy, int *p_pocet_prvkov)
 	AUTA *akt, *pomocny;
 
 	printf("Zadaj znacku, kt. chces zmazat: \n");
-	scanf(" %[^\n]", vybrana_znacka); 
+	scanf(" %[^\n]", vybrana_znacka);
 	hladana_znacka = strlwr(vybrana_znacka);
 
 	akt = prvy;
 	while (poradie < pocet_prvkov - pocet_zmazanych)
 	{
 		if (poradie == 1) akt = prvy; //v prvom cykle
-		
+
 		aktualna_znacka = strlwr(akt->znacka);
 
 		if (strstr(aktualna_znacka, hladana_znacka) != NULL) // hladanie substringu a mazanie prvkov, kt. ho obsahuju
 		{
 			mazana_pozicia = poradie;
-			pocet_zmazanych++; 
-			poradie = 0; 
+			pocet_zmazanych++;
+			poradie = 0;
 
 			if (mazana_pozicia == 1) //ak mažeme 1.pozíciu
 			{
@@ -266,7 +266,7 @@ void zmazanie(AUTA *prvy, int pocet_prvkov, AUTA **novy, int *p_pocet_prvkov)
 			else //ak mažeme inú pozíciu
 			{
 				akt = prvy;
-				for (poradie_mazania = 0; poradie_mazania < mazana_pozicia - 2; poradie_mazania++) 
+				for (poradie_mazania = 0; poradie_mazania < mazana_pozicia - 2; poradie_mazania++)
 					akt = akt->dalsi;
 				pomocny = akt->dalsi;
 				akt->dalsi = pomocny->dalsi;
@@ -300,24 +300,24 @@ int main()
 
 	while (1) //nekonecny cyklus
 	{
-		char funkcia;	
+		char funkcia;
 		scanf("%c", &funkcia); // nacitanie funcie, kt. chceme vykonat
 
 		if (funkcia == 'k') break; //ukonci program - nekonecny cyklus 
-		
+
 		switch (funkcia)
 		{
 		case 'n':
 			if (p_prvy != NULL) //ak zoznam existuje - ma prvky uvolni existujuci zoznam a nacita novy
 				uvolni(p_prvy, pocet_prvkov, &p_prvy);
 
-			p_prvy = (AUTA *)malloc(sizeof(AUTA));  
+			p_prvy = (AUTA *)malloc(sizeof(AUTA));
 			nacitanie(&p_prvy, &pocet_prvkov); break; // alokacia pred nacitanim zoznamu a jeho nacitanie
 
 		case 'v': vypis(p_prvy, pocet_prvkov); break;
-		
+
 		case 'p': pridanie(p_prvy, pocet_prvkov, &p_prvy); pocet_prvkov++; break;  //pridali sme prvok --> zvacsil sa nam zoznam o 1 --> pocet prvkov +1
-		
+
 		case 'a': aktualizacia(p_prvy, pocet_prvkov, &p_prvy); break;
 
 		case 'h': hladanie(p_prvy, pocet_prvkov); break;
