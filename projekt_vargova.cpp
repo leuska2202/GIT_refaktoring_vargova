@@ -168,10 +168,11 @@ void aktualizacia(AUTA *prvy, int pocet_prvkov, AUTA **novy)
 {
 	AUTA *akt;
 	int poradie, vybrany_rok, zmena = 0, porovnanie;
-	char vybrana_znacka[51]; 
+	char vybrana_znacka[51], *hladana_znacka, *aktualna_znacka;
 
 	printf("Zadaj znacku auta: \n");
 	scanf(" %[^\n]", vybrana_znacka);
+	hladana_znacka = strlwr(vybrana_znacka);
 
 	printf("Zadaj rok: \n");
 	scanf(" %int", &vybrany_rok);
@@ -179,7 +180,8 @@ void aktualizacia(AUTA *prvy, int pocet_prvkov, AUTA **novy)
 	akt = prvy;
 	for (poradie = 1; poradie < pocet_prvkov; poradie++)
 	{
-		porovnanie = strcmp(vybrana_znacka, akt->znacka);
+		aktualna_znacka = strlwr(akt->znacka);
+		porovnanie = strcmp(hladana_znacka, aktualna_znacka);
 
 		if (porovnanie == 0 && vybrany_rok == akt->rok_vyroby)
 		{
