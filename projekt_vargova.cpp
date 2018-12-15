@@ -231,47 +231,54 @@ void hladanie(AUTA *prvy, int pocet_prvkov)
 	if (najdene == 0) printf("V ponuke nie su pozadovane auta.\n \n"); //ak sa nic nenaslo;
 }
 
-void zmazanie(AUTA *prvy, int n, AUTA **p_p, int *p_n)
+void zmazanie(AUTA *prvy, int pocet_prvkov, AUTA **novy, int *p_pocet_prvkov)
 {
-	char ui[51];
-	int i = 1, k, j, v = 0, por;
-	AUTA *akt, *pom;
-	scanf(" %[^\n]", ui); 
+	char vybrana_znacka[51];
+	int poradie = 1, mazana_pozicia, j, pocet_zmazanych = 0, porovnanie;
+	AUTA *akt, *pomocny;
+	scanf(" %[^\n]", vybrana_znacka); 
 
 	akt = prvy;
-	while (i < n - v)
+	while (poradie < pocet_prvkov - pocet_zmazanych)
 	{
-		if (i == 1) akt = prvy; //v prvom cykle
-		por = strcmp(ui, akt->znacka);
+		if (poradie == 1) akt = prvy; //v prvom cykle
+		porovnanie = strcmp(vybrana_znacka, akt->znacka);
 
-		if (por == 0)
+		if (porovnanie == 0)
 		{
-			k = i;
-			v++; 
-			i = 0; 
-			if (k == 1) //ak mažeme 1.pozíciu
+			mazana_pozicia = poradie;
+			pocet_zmazanych++; 
+			poradie = 0; 
+			if (mazana_pozicia == 1) //ak mažeme 1.pozíciu
 			{
-				pom = prvy;
-				prvy = pom->dalsi;
-				free(pom); //je potrebné uvolnenie vymazaneho prvku
+				pomocny = prvy;
+				prvy = pomocny->dalsi;
+				free(pomocny); //je potrebné uvolnenie vymazaneho prvku
 			}
 			else //ak mažeme inú pozíciu
 			{
 				akt = prvy;
-				for (j = 0; j < k - 2; j++)
+				for (j = 0; j < mazana_pozicia - 2; j++)
 					akt = akt->dalsi;
-				pom = akt->dalsi;
-				akt->dalsi = pom->dalsi;
-				free(pom);
+				pomocny = akt->dalsi;
+				akt->dalsi = pomocny->dalsi;
+				free(pomocny);
 			}
 		}
-		i++;
+		poradie++;
 		akt = akt->dalsi;
 	}
-	printf("Vymazalo sa %d zaznamov \n", v);
+	printf("Vymazalo sa %d zaznamov \n", pocet_zmazanych);
 
-	*p_p = prvy; //odoslanie noveho zoznamu a poctu prvkov opat do mainu
-	*p_n = n - v;
+	akt = prvy;
+	for (poradie = 1; poradie < pocet_prvkov - pocet_zmazanych; poradie++) //prepisanie ciselneho poradia prvkov po zmazani niektorych prvkov zoznamu
+	{
+		akt->hodnota = poradie;
+		akt = akt->dalsi;
+	}
+
+	*novy = prvy; //odoslanie noveho zoznamu a poctu prvkov opat do mainu
+	*p_pocet_prvkov = pocet_prvkov - pocet_zmazanych;
 }
 
 //HLAVNY PROGRAM
