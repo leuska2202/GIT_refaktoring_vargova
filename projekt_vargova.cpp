@@ -231,6 +231,49 @@ void hladanie(AUTA *prvy, int pocet_prvkov)
 	if (najdene == 0) printf("V ponuke nie su pozadovane auta.\n \n"); //ak sa nic nenaslo;
 }
 
+void zmazanie(AUTA *prvy, int n, AUTA **p_p, int *p_n)
+{
+	char ui[51];
+	int i = 1, k, j, v = 0, por;
+	AUTA *akt, *pom;
+	scanf(" %[^\n]", ui); 
+
+	akt = prvy;
+	while (i < n - v)
+	{
+		if (i == 1) akt = prvy; //v prvom cykle
+		por = strcmp(ui, akt->znacka);
+
+		if (por == 0)
+		{
+			k = i;
+			v++; 
+			i = 0; 
+			if (k == 1) //ak mažeme 1.pozíciu
+			{
+				pom = prvy;
+				prvy = pom->dalsi;
+				free(pom); //je potrebné uvolnenie vymazaneho prvku
+			}
+			else //ak mažeme inú pozíciu
+			{
+				akt = prvy;
+				for (j = 0; j < k - 2; j++)
+					akt = akt->dalsi;
+				pom = akt->dalsi;
+				akt->dalsi = pom->dalsi;
+				free(pom);
+			}
+		}
+		i++;
+		akt = akt->dalsi;
+	}
+	printf("Vymazalo sa %d zaznamov \n", v);
+
+	*p_p = prvy; //odoslanie noveho zoznamu a poctu prvkov opat do mainu
+	*p_n = n - v;
+}
+
 //HLAVNY PROGRAM
 int main()
 {
@@ -263,6 +306,8 @@ int main()
 		case 'a': aktualizacia(p_prvy, pocet_prvkov, &p_prvy); break;
 
 		case 'h': hladanie(p_prvy, pocet_prvkov); break;
+
+		case 'z': zmazanie(p_prvy, pocet_prvkov, &p_prvy, &pocet_prvkov); break;
 		}
 	}
 
