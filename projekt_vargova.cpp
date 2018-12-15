@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 //STRUKTURA ZOZNAMU
 typedef struct	auta
@@ -162,6 +163,74 @@ void pridanie(AUTA *prvy, int pocet_prvkov, AUTA **novy) // novy - pointer na no
 	*novy = prvy; //vratenie noveho zoznamu do mainu
 }
 
+//AKTUALIZACIA ZOZNAMU
+void aktualizacia(AUTA *prvy, int pocet_prvkov, AUTA **novy)
+{
+	AUTA *akt;
+	int poradie, vybrany_rok, zmena = 0, porovnanie;
+	char vybrana_znacka[51]; 
+
+	printf("Zadaj znacku auta: \n");
+	scanf(" %[^\n]", vybrana_znacka);
+
+	printf("Zadaj rok: \n");
+	scanf(" %int", &vybrany_rok);
+
+	akt = prvy;
+	for (poradie = 1; poradie < pocet_prvkov; poradie++)
+	{
+		porovnanie = strcmp(vybrana_znacka, akt->znacka);
+
+		if (porovnanie == 0 && vybrany_rok == akt->rok_vyroby)
+		{
+			zmena++; //kolko sa aktualizovalo
+			akt->cena = akt->cena - 100;
+			if (akt->cena < 0) akt->cena = 0; //ak je cena po zmenseni o 100 zaporna tak sa rovná 0
+		}
+		akt = akt->dalsi;
+	}
+
+	printf("Aktualizovalo sa %d zaznamov \n \n", zmena);
+	*novy = prvy;
+}
+
+//HLADANIE ZAZNAMU
+void hladanie(AUTA *prvy, int pocet_prvkov)
+{
+	AUTA *akt; 
+	int suma; 
+	char vybrana_znacka[51];
+	int poradie, porovnanie, najdene=0; // najdene = zistenie , ci aspon 1 polozka dostupna
+
+	printf("Zadaj znacku auta: \n");
+	scanf(" %[^\n]", vybrana_znacka);
+	
+	printf("Zadaj sumu, kt. mas k dispozicii: \n");
+	scanf(" %int", &suma);
+
+	akt = prvy;
+	printf("\nDostupne vozidla: \n");
+
+	for (poradie = 1; poradie < pocet_prvkov; poradie++)
+	{
+		porovnanie = strcmp(vybrana_znacka, akt->znacka); // porovnanie stringov
+		
+		if (porovnanie == 0 && suma > akt->cena)  // ak porovnanie rovne 0 , tak su rovnake
+		{
+			printf("%d. \n", akt->hodnota);
+			printf("kategoria: %s \n", akt->kategoria);
+			printf("znacka: %s \n", akt->znacka);
+			printf("predajca: %s \n", akt->predajca);
+			printf("cena: %d \n", akt->cena);
+			printf("rok_vyroby: %d \n", akt->rok_vyroby);
+			printf("stav_vozidla: %s \n \n", akt->stav_vozidla);
+			najdene = 1; //nasla sa aspon 1 polozka
+		}
+		akt = akt->dalsi;
+	}
+	if (najdene == 0) printf("V ponuke nie su pozadovane auta.\n \n"); //ak sa nic nenaslo;
+}
+
 //HLAVNY PROGRAM
 int main()
 {
@@ -173,8 +242,7 @@ int main()
 
 	while (1) //nekonecny cyklus
 	{
-		char funkcia;
-		
+		char funkcia;	
 		scanf("%c", &funkcia); // nacitanie funcie, kt. chceme vykonat
 
 		if (funkcia == 'k') break; //ukonci program - nekonecny cyklus 
@@ -191,6 +259,10 @@ int main()
 		case 'v': vypis(p_prvy, pocet_prvkov); break;
 		
 		case 'p': pridanie(p_prvy, pocet_prvkov, &p_prvy); pocet_prvkov++; break;  //pridali sme prvok --> zvacsil sa nam zoznam o 1 --> pocet prvkov +1
+		
+		case 'a': aktualizacia(p_prvy, pocet_prvkov, &p_prvy); break;
+
+		case 'h': hladanie(p_prvy, pocet_prvkov); break;
 		}
 	}
 
