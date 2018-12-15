@@ -231,11 +231,14 @@ void hladanie(AUTA *prvy, int pocet_prvkov)
 	if (najdene == 0) printf("V ponuke nie su pozadovane auta.\n \n"); //ak sa nic nenaslo;
 }
 
+//MAZANIE ZAZNAMU	
 void zmazanie(AUTA *prvy, int pocet_prvkov, AUTA **novy, int *p_pocet_prvkov)
 {
 	char vybrana_znacka[51];
-	int poradie = 1, mazana_pozicia, j, pocet_zmazanych = 0, porovnanie;
+	int poradie = 1, mazana_pozicia, poradie_mazania, pocet_zmazanych = 0, porovnanie;
 	AUTA *akt, *pomocny;
+
+	printf("Zadaj znacku, kt. chces zmazat: \n");
 	scanf(" %[^\n]", vybrana_znacka); 
 
 	akt = prvy;
@@ -249,6 +252,7 @@ void zmazanie(AUTA *prvy, int pocet_prvkov, AUTA **novy, int *p_pocet_prvkov)
 			mazana_pozicia = poradie;
 			pocet_zmazanych++; 
 			poradie = 0; 
+
 			if (mazana_pozicia == 1) //ak mažeme 1.pozíciu
 			{
 				pomocny = prvy;
@@ -258,7 +262,7 @@ void zmazanie(AUTA *prvy, int pocet_prvkov, AUTA **novy, int *p_pocet_prvkov)
 			else //ak mažeme inú pozíciu
 			{
 				akt = prvy;
-				for (j = 0; j < mazana_pozicia - 2; j++)
+				for (poradie_mazania = 0; poradie_mazania < mazana_pozicia - 2; poradie_mazania++) 
 					akt = akt->dalsi;
 				pomocny = akt->dalsi;
 				akt->dalsi = pomocny->dalsi;
@@ -268,7 +272,7 @@ void zmazanie(AUTA *prvy, int pocet_prvkov, AUTA **novy, int *p_pocet_prvkov)
 		poradie++;
 		akt = akt->dalsi;
 	}
-	printf("Vymazalo sa %d zaznamov \n", pocet_zmazanych);
+	printf("Vymazalo sa %d zaznamov \n \n", pocet_zmazanych);
 
 	akt = prvy;
 	for (poradie = 1; poradie < pocet_prvkov - pocet_zmazanych; poradie++) //prepisanie ciselneho poradia prvkov po zmazani niektorych prvkov zoznamu
@@ -278,7 +282,7 @@ void zmazanie(AUTA *prvy, int pocet_prvkov, AUTA **novy, int *p_pocet_prvkov)
 	}
 
 	*novy = prvy; //odoslanie noveho zoznamu a poctu prvkov opat do mainu
-	*p_pocet_prvkov = pocet_prvkov - pocet_zmazanych;
+	*p_pocet_prvkov = pocet_prvkov - pocet_zmazanych; //pocet prvkov sa zmensil o pocet zmazanych
 }
 
 //HLAVNY PROGRAM
