@@ -1,0 +1,5 @@
+*.exe
+*.vcxproj
+*.user
+*.filters
+*.sln
