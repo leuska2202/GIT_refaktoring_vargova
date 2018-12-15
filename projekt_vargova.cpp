@@ -194,20 +194,26 @@ void aktualizacia(AUTA *prvy, int pocet_prvkov, AUTA **novy)
 	*novy = prvy;
 }
 
-void hladanie(AUTA *prvy, int n)
+void hladanie(AUTA *prvy, int pocet_prvkov)
 {
 	AUTA *akt; 
-	int s; 
-	char x[51];
-		int i, p, y = 0;
-	scanf(" %[^\n]", x);
-	scanf(" %int", &s);
+	int suma; 
+	char vybrana_znacka[51];
+	int poradie, porovnanie;
+
+	printf("Zadaj znacku auta: \n");
+	scanf(" %[^\n]", vybrana_znacka);
+	
+	printf("Zadaj sumu, kt. mas k dispozicii: \n");
+	scanf(" %int", &suma);
 
 	akt = prvy;
-	for (i = 1; i < n; i++)
+	for (poradie = 1; poradie < pocet_prvkov; poradie++)
 	{
-		p = strcmp(x, akt->znacka);
-		if (p == 0 && s > akt->cena) 
+		porovnanie = strcmp(vybrana_znacka, akt->znacka);
+
+		printf("Dostupne vozidla: \n");
+		if (porovnanie == 0 && suma > akt->cena) 
 		{
 			printf("%d. \n", akt->hodnota);
 			printf("kategoria: %s \n", akt->kategoria);
