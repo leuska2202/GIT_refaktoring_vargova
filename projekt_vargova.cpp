@@ -167,7 +167,7 @@ void pridanie(AUTA *prvy, int pocet_prvkov, AUTA **novy) // novy - pointer na no
 void aktualizacia(AUTA *prvy, int pocet_prvkov, AUTA **novy)
 {
 	AUTA *akt;
-	int poradie, vybrany_rok, zmena = 0, porovnanie;
+	int poradie, vybrany_rok, zmena = 0;
 	char vybrana_znacka[51], *hladana_znacka, *aktualna_znacka;
 
 	printf("Zadaj znacku auta: \n");
@@ -181,9 +181,8 @@ void aktualizacia(AUTA *prvy, int pocet_prvkov, AUTA **novy)
 	for (poradie = 1; poradie < pocet_prvkov; poradie++)
 	{
 		aktualna_znacka = strlwr(akt->znacka);
-		porovnanie = strcmp(hladana_znacka, aktualna_znacka);
 
-		if (porovnanie == 0 && vybrany_rok == akt->rok_vyroby)
+		if (strcmp(hladana_znacka, aktualna_znacka)==0 && vybrany_rok == akt->rok_vyroby)
 		{
 			zmena++; //kolko sa aktualizovalo
 			akt->cena = akt->cena - 100;
@@ -217,9 +216,8 @@ void hladanie(AUTA *prvy, int pocet_prvkov)
 	for (poradie = 1; poradie < pocet_prvkov; poradie++)
 	{
 		aktualna_znacka = strlwr(akt->znacka);
-		porovnanie = strcmp(hladana_znacka, aktualna_znacka);
 		
-		if (porovnanie == 0 && suma > akt->cena)  // ak porovnanie rovne 0 , tak su rovnake
+		if (strcmp(hladana_znacka, aktualna_znacka) == 0 && suma > akt->cena)  // ak porovnanie rovne 0 , tak su rovnake
 		{
 			printf("%d. \n", akt->hodnota);
 			printf("kategoria: %s \n", akt->kategoria);
@@ -239,7 +237,7 @@ void hladanie(AUTA *prvy, int pocet_prvkov)
 void zmazanie(AUTA *prvy, int pocet_prvkov, AUTA **novy, int *p_pocet_prvkov)
 {
 	char vybrana_znacka[51], *hladana_znacka, *aktualna_znacka;
-	int poradie = 1, mazana_pozicia, poradie_mazania, pocet_zmazanych = 0, porovnanie;
+	int poradie = 1, mazana_pozicia, poradie_mazania, pocet_zmazanych = 0;
 	AUTA *akt, *pomocny;
 
 	printf("Zadaj znacku, kt. chces zmazat: \n");
@@ -252,9 +250,8 @@ void zmazanie(AUTA *prvy, int pocet_prvkov, AUTA **novy, int *p_pocet_prvkov)
 		if (poradie == 1) akt = prvy; //v prvom cykle
 		
 		aktualna_znacka = strlwr(akt->znacka);
-		porovnanie = strcmp(hladana_znacka, aktualna_znacka);
 
-		if (porovnanie == 0)
+		if (strstr(aktualna_znacka, hladana_znacka) != NULL) // hladanie substringu a mazanie prvkov, kt. ho obsahuju
 		{
 			mazana_pozicia = poradie;
 			pocet_zmazanych++; 
