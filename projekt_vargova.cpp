@@ -164,28 +164,34 @@ void pridanie(AUTA *prvy, int pocet_prvkov, AUTA **novy) // novy - pointer na no
 }
 
 //AKTUALIZACIA ZOZNAMU
-void aktualizacia(AUTA *prvy, int n, AUTA **p)
+void aktualizacia(AUTA *prvy, int pocet_prvkov, AUTA **novy)
 {
 	AUTA *akt;
-	int i, r, z = 0, por;
-	char x[51]; 
-	scanf(" %[^\n]", x);
-	scanf(" %int", &r);
+	int poradie, vybrany_rok, zmena = 0, porovnanie;
+	char vybrana_znacka[51]; 
+
+	printf("Zadaj znacku auta: \n");
+	scanf(" %[^\n]", vybrana_znacka);
+
+	printf("Zadaj rok: \n");
+	scanf(" %int", &vybrany_rok);
 
 	akt = prvy;
-	for (i = 1; i < n; i++)
+	for (poradie = 1; poradie < pocet_prvkov; poradie++)
 	{
-		por = strcmp(x, akt->znacka);
-		if (por == 0 && r == akt->rok_vyroby)
+		porovnanie = strcmp(vybrana_znacka, akt->znacka);
+
+		if (porovnanie == 0 && vybrany_rok == akt->rok_vyroby)
 		{
-			z++; //kolko sa aktualizovalo
+			zmena++; //kolko sa aktualizovalo
 			akt->cena = akt->cena - 100;
 			if (akt->cena < 0) akt->cena = 0; //ak je cena po zmenseni o 100 zaporna tak sa rovná 0
 		}
 		akt = akt->dalsi;
 	}
-	printf("Aktualizovalo sa %d zaznamov \n", z);
-	*p = prvy;
+
+	printf("Aktualizovalo sa %d zaznamov \n \n", zmena);
+	*novy = prvy;
 }
 
 //HLAVNY PROGRAM
