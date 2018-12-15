@@ -194,12 +194,13 @@ void aktualizacia(AUTA *prvy, int pocet_prvkov, AUTA **novy)
 	*novy = prvy;
 }
 
+//HLADANIE ZAZNAMU
 void hladanie(AUTA *prvy, int pocet_prvkov)
 {
 	AUTA *akt; 
 	int suma; 
 	char vybrana_znacka[51];
-	int poradie, porovnanie;
+	int poradie, porovnanie, najdene=0; // najdene = zistenie , ci aspon 1 polozka dostupna
 
 	printf("Zadaj znacku auta: \n");
 	scanf(" %[^\n]", vybrana_znacka);
@@ -208,7 +209,7 @@ void hladanie(AUTA *prvy, int pocet_prvkov)
 	scanf(" %int", &suma);
 
 	akt = prvy;
-	printf("Dostupne vozidla: \n");
+	printf("\nDostupne vozidla: \n");
 
 	for (poradie = 1; poradie < pocet_prvkov; poradie++)
 	{
@@ -222,10 +223,12 @@ void hladanie(AUTA *prvy, int pocet_prvkov)
 			printf("predajca: %s \n", akt->predajca);
 			printf("cena: %d \n", akt->cena);
 			printf("rok_vyroby: %d \n", akt->rok_vyroby);
-			printf("stav_vozidla: %s \n", akt->stav_vozidla);
+			printf("stav_vozidla: %s \n \n", akt->stav_vozidla);
+			najdene = 1; //nasla sa aspon 1 polozka
 		}
 		akt = akt->dalsi;
 	}
+	if (najdene == 0) printf("V ponuke nie su pozadovane auta.\n \n"); //ak sa nic nenaslo;
 }
 
 //HLAVNY PROGRAM
