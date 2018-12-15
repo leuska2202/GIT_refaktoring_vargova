@@ -38,5 +38,11 @@ v – je príkaz na výpis celého spájaného zoznamu záznamov.
 p – je príkaz na pridanie záznamu do dynamického zoznamu.
 Príkaz je v ďalšom riadku nasledovaný celým číslom k > 0 vyjadrujúcim pozíciu (počítanú od 1), na ktorú sa má záznam pridať. Potom nasleduje ďalších 6 riadkov, každý ukončený znakom konca riadku a obsahujúcim položky záznamu v poradí v akom sú aj v súbore auta.txt. Ak pozícia k v zozname neexistuje, záznam sa pridá na koniec zoznamu. 
 
+h - umožní používateľovi vyhľadať a vypísať všetky položky záznamu podľa značky auta a ceny ponuky.
+
+a – je príkaz na aktualizáciu (zmenu) záznamu podľa značky auta a roku výroby.
+Riadok s príkazom a je nasledovaný riadkom obsahujúcim značku auta ukončenom znakom konca riadku a rok výroby ukončený znakom konca riadku. Program aktualizuje všetky záznamy obsahujúce zadanú značku auta a rok výroby tak, že pri všetkých týchto záznamoch zníži cenu vozidla o 100. V prípade ak by po znížení bola cena auta záporné číslo cena sa upraví na 0.
+
+
 k – je príkaz na ukončenie programu.
 Ak spájaný zoznam existoval, treba uvoľniť pamäť.
