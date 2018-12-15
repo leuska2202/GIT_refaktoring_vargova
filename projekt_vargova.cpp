@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 //STRUKTURA ZOZNAMU
 typedef struct	auta
@@ -162,6 +163,31 @@ void pridanie(AUTA *prvy, int pocet_prvkov, AUTA **novy) // novy - pointer na no
 	*novy = prvy; //vratenie noveho zoznamu do mainu
 }
 
+//AKTUALIZACIA ZOZNAMU
+void aktualizacia(AUTA *prvy, int n, AUTA **p)
+{
+	AUTA *akt;
+	int i, r, z = 0, por;
+	char x[51]; 
+	scanf(" %[^\n]", x);
+	scanf(" %int", &r);
+
+	akt = prvy;
+	for (i = 1; i < n; i++)
+	{
+		por = strcmp(x, akt->znacka);
+		if (por == 0 && r == akt->rok_vyroby)
+		{
+			z++; //kolko sa aktualizovalo
+			akt->cena = akt->cena - 100;
+			if (akt->cena < 0) akt->cena = 0; //ak je cena po zmenseni o 100 zaporna tak sa rovná 0
+		}
+		akt = akt->dalsi;
+	}
+	printf("Aktualizovalo sa %d zaznamov \n", z);
+	*p = prvy;
+}
+
 //HLAVNY PROGRAM
 int main()
 {
@@ -173,8 +199,7 @@ int main()
 
 	while (1) //nekonecny cyklus
 	{
-		char funkcia;
-		
+		char funkcia;	
 		scanf("%c", &funkcia); // nacitanie funcie, kt. chceme vykonat
 
 		if (funkcia == 'k') break; //ukonci program - nekonecny cyklus 
@@ -191,6 +216,8 @@ int main()
 		case 'v': vypis(p_prvy, pocet_prvkov); break;
 		
 		case 'p': pridanie(p_prvy, pocet_prvkov, &p_prvy); pocet_prvkov++; break;  //pridali sme prvok --> zvacsil sa nam zoznam o 1 --> pocet prvkov +1
+		
+		case 'a': aktualizacia(p_prvy, pocet_prvkov, &p_prvy); break;
 		}
 	}
 
