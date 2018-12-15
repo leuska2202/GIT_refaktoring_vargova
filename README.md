@@ -1,6 +1,10 @@
-# GIT_refaktoring_vargova
+﻿# GIT_refaktoring_vargova
 
+<<<<<<< HEAD
 projekt na MIP git + refaktoring
+=======
+projekt na MIP git+ refaktoring
+>>>>>>> 41286800d5e370d098824d50c9d497886299b6b6
 
 Zadanie:
 Napíšte program, ktorý bude pracovať so záznamami v dynamickom spájanom zozname. Záznamy uložené v súbore auta.txt budú predstavovať ponuku autobazárov v internetovom obchode. Pred každým záznamom v súbore bude jeden riadok obsahujúci znak $, ktorý záznamy viditeľne oddelí. Jednotlivé položky záznamu budú v súbore umiestnené vždy v samostatnom riadku. 
