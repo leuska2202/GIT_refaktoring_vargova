@@ -1,12 +1,6 @@
 ﻿# GIT_refaktoring_vargova
 
-<<<<<<< HEAD
-projekt na MIP git + refaktoring
-=======
-projekt na MIP git+ refaktoring
->>>>>>> 41286800d5e370d098824d50c9d497886299b6b6
-
-Zadanie:
+Zadanie programu:
 Napíšte program, ktorý bude pracovať so záznamami v dynamickom spájanom zozname. Záznamy uložené v súbore auta.txt budú predstavovať ponuku autobazárov v internetovom obchode. Pred každým záznamom v súbore bude jeden riadok obsahujúci znak $, ktorý záznamy viditeľne oddelí. Jednotlivé položky záznamu budú v súbore umiestnené vždy v samostatnom riadku. 
 
 Význam položiek záznamu bude nasledujúci:
@@ -47,6 +41,16 @@ h - umožní používateľovi vyhľadať a vypísať všetky položky záznamu p
 a – je príkaz na aktualizáciu (zmenu) záznamu podľa značky auta a roku výroby.
 Riadok s príkazom a je nasledovaný riadkom obsahujúcim značku auta ukončenom znakom konca riadku a rok výroby ukončený znakom konca riadku. Program aktualizuje všetky záznamy obsahujúce zadanú značku auta a rok výroby tak, že pri všetkých týchto záznamoch zníži cenu vozidla o 100. V prípade ak by po znížení bola cena auta záporné číslo cena sa upraví na 0.
 
+z – je príkaz na zmazanie záznamov o autách podľa značky auta.
 
 k – je príkaz na ukončenie programu.
 Ak spájaný zoznam existoval, treba uvoľniť pamäť.
+
+Refaktoring programu: 
+- postupný prepis premenných z jednoduchým písmen na jasnejsie výrazy
+- pridávanie a odtranovanie medzier
+- pridávanie poznámok a vysvetliviek fungovania programu
+- zmena funckie if, if else v maine na switch - prehladnejsie, efektivnejsie a na menej riadkov
+- refaktoring vyhladavania poloziek vo funkciach - hladanie, aktualizacia a zmazanie:
+polozka nemusi byt zadfana tak ako je zapisana v zozname- na velkosti pismen nezalezi
++ pri funkcii zmazanie staci najst substring a vymaze polozky obsahujuce tento substring
