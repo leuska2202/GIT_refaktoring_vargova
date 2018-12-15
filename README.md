@@ -53,4 +53,4 @@ Refaktoring programu:
 - zmena funckie if, if else v maine na switch - prehladnejsie, efektivnejsie a na menej riadkov
 - refaktoring vyhladavania poloziek vo funkciach - hladanie, aktualizacia a zmazanie:
 polozka nemusi byt zadfana tak ako je zapisana v zozname- na velkosti pismen nezalezi
-+ pri funkcii zmazanie staci najst substring a vymaze polozky obsahujuce tento substring
+pri funkcii zmazanie staci najst substring a vymaze polozky obsahujuce tento substring
